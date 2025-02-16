@@ -4,6 +4,13 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <UserSecretsId>b509e072-b233-4d6c-aa30-522f020ae306</UserSecretsId>
   </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\StreamBit.Application\StreamBit.Application.csproj" />
+    <ProjectReference Include="..\StreamBit.Contracts\StreamBit.Contracts.csproj" />
+    <ProjectReference Include="..\StreamBit.Infrastructure\StreamBit.Infrastructure.csproj" />
+  </ItemGroup>
 
 </Project>
