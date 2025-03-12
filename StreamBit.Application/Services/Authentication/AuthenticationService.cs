@@ -1,6 +1,8 @@
-﻿using StreamBit.Application.Common.Interfaces.Authentication;
+﻿using ErrorOr;
+using StreamBit.Application.Common.Interfaces.Authentication;
 using StreamBit.Application.Common.Interfaces.Persistence;
 using StreamBit.Domain.Entities;
+using StreamBit.Domain.Common.Errors;
 
 namespace StreamBit.Application.Services.Authentication;
 public class AuthenticationService : IAuthenticationService
@@ -13,17 +15,17 @@ public class AuthenticationService : IAuthenticationService
         _jwtTokenGenerator = jwtTokenGenerator;
         _userRepository = userRepository;
     }
-    public async Task<AuthenticationResult> Login(string email, string password)
+    public async Task<ErrorOr<AuthenticationResult>> Login(string email, string password)
     {
         var user = await _userRepository.GetUserByEmailAsync(email);
         if (user is null)
         {
-            throw new Exception("User not found");
+            return Errors.Authentication.InvalidCredentials;
         }
         
         if (user.Password != password)
         {
-            throw new Exception("Invalid password");
+            return Errors.Authentication.InvalidCredentials;
         }
         
         var token = _jwtTokenGenerator.GenerateToken(user);
@@ -33,12 +35,12 @@ public class AuthenticationService : IAuthenticationService
             token);
     }
 
-    public async Task<AuthenticationResult> Register(string firstName, string lastName, string email, string password)
+    public async Task<ErrorOr<AuthenticationResult>> Register(string firstName, string lastName, string email, string password)
     {
         var user = await _userRepository.GetUserByEmailAsync(email);
         if (user is not null)
         {
-            throw new Exception("User already exists");
+            return Errors.User.DuplicateEmail;            
         }
 
         var newUser = new User
