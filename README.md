@@ -1,29 +1,33 @@
----
-icon: hand-wave
-cover: https://gitbookio.github.io/onboarding-template-images/header.png
-coverY: 0
-layout:
-  cover:
-    visible: true
-    size: full
-  title:
-    visible: true
-  description:
-    visible: false
-  tableOfContents:
-    visible: true
-  outline:
-    visible: true
-  pagination:
-    visible: true
----
+# StreamBit.Authentication
 
-# Welcome
+StreamBit is a personal side project currently under development. The goal of this web application is to provide a platform for streaming sports, movies, and other types of content. This repository, `StreamBit.Authentication`, is the authentication module of the application, built using .NET 9.0. It handles user registration, login, and authentication using JSON Web Tokens (JWT).
 
-Welcome to the GitBook Starter Template! Here you'll get an overview of all the amazing features GitBook offers to help you build beautiful, interactive documentation.
+## Project Structure
 
-You'll see some of the best parts of GitBook in action — and find help on how you can turn this template into your own.
+The project is organized into the following layers:
 
-### Jump right in
+- **StreamBit.Api**: Contains the API controllers and configuration for handling HTTP requests.
+- **StreamBit.Application**: Implements the business logic and application services.
+- **StreamBit.Contracts**: Defines the data contracts used for communication between layers.
+- **StreamBit.Domain**: Contains the core domain models and error definitions.
+- **StreamBit.Infrastructure**: Provides infrastructure services such as JWT token generation and data persistence.
 
-<table data-view="cards"><thead><tr><th></th><th></th><th data-hidden data-card-cover data-type="files"></th><th data-hidden></th><th data-hidden data-card-target data-type="content-ref"></th></tr></thead><tbody><tr><td><strong>Getting Started</strong></td><td>Create your first site</td><td></td><td></td><td><a href="broken-reference">Broken link</a></td></tr><tr><td><strong>Basics</strong></td><td>Learn the basics of GitBook</td><td></td><td></td><td><a href="broken-reference">Broken link</a></td></tr><tr><td><strong>Publish your docs</strong></td><td>Share your docs online</td><td></td><td></td><td><a href="broken-reference">Broken link</a></td></tr></tbody></table>
+## Features
+
+- **User Authentication**: Secure login and registration using JWT.
+- **Error Handling**: Centralized error management with detailed error codes.
+- **Scalable Architecture**: Modular design for easy maintenance and scalability.
+- **In-Memory User Repository**: A simple in-memory database for development purposes.
+
+## Prerequisites
+
+- .NET 9.0 SDK
+- Visual Studio or Visual Studio Code
+- SQL Server (optional, for future database integration)
+
+## Initial Setup
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/your-username/StreamBit.Authentication.git
+   cd StreamBit.Authentication
