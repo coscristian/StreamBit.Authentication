@@ -1,24 +1,29 @@
 ﻿using StreamBit.Contracts.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using StreamBit.Application.Services.Authentication;
+using MediatR;
+using StreamBit.Application.Authentication.Commands.Register;
+using StreamBit.Application.Authentication.Queries.Login;
+using StreamBit.Application.Authentication.Common;
 
 namespace StreamBit.Api.Controllers;
 
 [Route("auth")]
 public class AuthenticationController : ApiController
 {
-    private readonly IAuthenticationService _authenticationService;
+    private readonly ISender _mediator;
 
-    public AuthenticationController(IAuthenticationService authenticationService)
+    public AuthenticationController(ISender mediator)
     {
-        _authenticationService = authenticationService;
+        _mediator = mediator;
     }
 
     [HttpPost]
     [Route("login")]
     public async Task<IActionResult> Login([FromBody] LoginRequest request)
     {
-        var loginResult = await _authenticationService.Login(request.Email, request.Password);   
+        var command = new LoginQuery(request.Email, request.Password);
+        var loginResult = await _mediator.Send(command);
+
         return loginResult.Match(
             result => Ok(MapLoginResult(loginResult.Value)),
             errors => Problem(errors)
@@ -38,7 +43,9 @@ public class AuthenticationController : ApiController
     [HttpPost("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
-        var registerResult = await _authenticationService.Register(request.FirstName, request.LastName, request.Email, request.Password);
+        var command = new RegisterCommand(request.FirstName, request.LastName, request.Email, request.Password);
+        var registerResult = await _mediator.Send(command);
+
         return registerResult.Match(
             result => Ok(MapRegisterResult(registerResult.Value)),
             errors => Problem(errors)
