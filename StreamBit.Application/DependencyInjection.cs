@@ -1,5 +1,5 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using StreamBit.Application.Services.Authentication;
+﻿using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace StreamBit.Application
 {
@@ -7,8 +7,10 @@ namespace StreamBit.Application
     {
         public static IServiceCollection AddApplication(this IServiceCollection services)
         {
-            services.AddScoped<IAuthenticationService, AuthenticationService>();
-
+            services.AddMediatR(configuration =>
+                configuration.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly())
+            );
+            
             return services;
         }
     }
