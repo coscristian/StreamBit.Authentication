@@ -30,8 +30,7 @@ public class RegisterCommandHandler :
 
         var newUser = new User
         {
-            FirstName = request.FirstName,
-            LastName = request.LastName,
+            Username = request.Username,
             Email = request.Email,
             Password = request.Password
         };

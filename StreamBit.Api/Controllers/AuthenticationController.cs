@@ -33,17 +33,17 @@ public class AuthenticationController : ApiController
     private static AuthenticationResponse MapLoginResult(AuthenticationResult loginResult)
     {
         return new AuthenticationResponse(
-            loginResult.User.Id,
-            loginResult.User.FirstName,
-            loginResult.User.LastName,
+            //loginResult.User.Id,
+            loginResult.User.Username,
             loginResult.User.Email,
             loginResult.Token);
     }
 
-    [HttpPost("register")]
+    [HttpPost]
+    [Route("register")]
     public async Task<IActionResult> Register(RegisterRequest request)
     {
-        var command = new RegisterCommand(request.FirstName, request.LastName, request.Email, request.Password);
+        var command = new RegisterCommand(request.Username, request.Email, request.Password);
         var registerResult = await _mediator.Send(command);
 
         return registerResult.Match(
@@ -55,11 +55,9 @@ public class AuthenticationController : ApiController
     private static AuthenticationResponse MapRegisterResult(AuthenticationResult registerResult)
     {
         return new AuthenticationResponse(
-            registerResult.User.Id,
-            registerResult.User.FirstName,
-            registerResult.User.LastName,
+            //registerResult.User.Id,
+            registerResult.User.Username,
             registerResult.User.Email,
             registerResult.Token);
     }
 }
-
