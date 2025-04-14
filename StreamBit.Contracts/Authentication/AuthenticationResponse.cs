@@ -1,8 +1,7 @@
 ﻿namespace StreamBit.Contracts.Authentication;
 public record AuthenticationResponse(
-    Guid Id,
-    string FirstName,
-    string LastName,
+    //Guid Id,
+    string Username,
     string Email,
     string Token
 );

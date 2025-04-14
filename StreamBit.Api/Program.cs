@@ -8,10 +8,22 @@ namespace StreamBit.Api
         public static void Main(string[] args)
         {
             var builder = WebApplication.CreateBuilder(args);
-
             // Add services to the container.
 
             builder.Services.AddControllers();
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+            builder.Services.AddCors(options =>
+            {
+                options.AddPolicy(name: "AllowAllOrigins",
+                    configurePolicy: policy =>
+                    {
+                        policy.AllowAnyOrigin()
+                            .AllowAnyHeader()
+                            .AllowAnyMethod();
+                    });                
+            });
+
             builder.Services
                 .AddApplication()
                 .AddInfrastructure(builder.Configuration);
@@ -21,11 +33,14 @@ namespace StreamBit.Api
             // Configure the HTTP request pipeline.
 
             app.UseHttpsRedirection();
-
+            app.UseCors("AllowAllOrigins");
             app.UseAuthorization();
-
-            // Add swagger
-
+            
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseSwagger();
+                app.UseSwaggerUI();
+            }
             app.MapControllers();
 
             app.Run();

@@ -8,6 +8,11 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="8.1.1" />
+    <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\StreamBit.Application\StreamBit.Application.csproj" />
     <ProjectReference Include="..\StreamBit.Contracts\StreamBit.Contracts.csproj" />
     <ProjectReference Include="..\StreamBit.Infrastructure\StreamBit.Infrastructure.csproj" />
